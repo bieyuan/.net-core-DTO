@@ -43,7 +43,7 @@
   ## 调用如下
   ``` C#
   var mode=new TestA();
-  ar b = Mapper<TestA, TestB>.Map(model);
+  TestB b = Mapper<TestA, TestB>.Map(model);
   ```
 
 
