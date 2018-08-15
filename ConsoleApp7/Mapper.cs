@@ -200,11 +200,33 @@
                 if (sourceItem.GetCustomAttribute<NotMappedAttribute>() != null)
                     continue;
 
+                var sourceProperty = Property(sourceParameter, sourceItem);
+                var targetProperty = Property(targetParameter, targetItem);
+
+                //当非值类型且类型不相同时
+                if (!sourceItem.PropertyType.IsValueType && sourceItem.PropertyType != targetItem.PropertyType)
+                {
+                    //判断都是(非泛型)class
+                    if (sourceItem.PropertyType.IsClass && targetItem.PropertyType.IsClass &&
+                        !sourceItem.PropertyType.IsGenericType && !targetItem.PropertyType.IsGenericType)
+                    {
+                        var expression = GetClassExpression(sourceProperty, sourceItem.PropertyType, targetItem.PropertyType);
+                        expressions.Add(Assign(targetProperty, expression));
+                    }
+
+                    //集合数组类型的转换
+                    if (typeof(IEnumerable).IsAssignableFrom(sourceItem.PropertyType) && typeof(IEnumerable).IsAssignableFrom(targetItem.PropertyType))
+                    {
+                        var expression = GetListExpression(sourceProperty, sourceItem.PropertyType, targetItem.PropertyType);
+                        expressions.Add(Assign(targetProperty, expression));
+                    }
+
+                    continue;
+                }
+
                 if (targetItem.PropertyType != sourceItem.PropertyType)
                     continue;
 
-                var sourceProperty = Property(sourceParameter, sourceItem);
-                var targetProperty = Property(targetParameter, targetItem);
 
                 expressions.Add(Assign(targetProperty, sourceProperty));
             }
