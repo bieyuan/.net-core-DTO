@@ -44,6 +44,11 @@
   ``` C#
   var mode=new TestA();
   TestB b = Mapper<TestA, TestB>.Map(model);
+  
+  var a = new TestA();
+  a.ID = 1;
+  var b = new TestB();
+  Mapper<TestA, TestB>.Map(a ,b);
   ```
 
 
