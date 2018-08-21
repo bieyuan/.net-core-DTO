@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Attributes.Columns;
 
 namespace Benchmarks
 {
-    [RankColumn, CategoriesColumn, BenchmarkCategory("NativeMapper")]
     public class NativeMapperBenchmark : BenchmarkBase
     {
         [Benchmark]
@@ -88,7 +85,7 @@ namespace Benchmarks
                 {
                     Id = model.Id,
                     Name = model.Name,
-                    TestLists = new List<TestD> {
+                    TestLists = new[] {
                         new TestD{
                             Id = model.TestLists.ElementAt(0).Id,
                             Name =  model.TestLists.ElementAt(0).Name,
@@ -97,7 +94,7 @@ namespace Benchmarks
                             Id =  model.TestLists.ElementAt(1).Id,
                             Name =  model.TestLists.ElementAt(1).Name,
                         },
-                    }.ToArray()
+                    }
                 };
             }
         }
