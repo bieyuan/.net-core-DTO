@@ -96,6 +96,23 @@
                     continue;
                 }
 
+                //可空类型转换到非可空类型，当可空类型值为null时，用默认值赋给目标属性；不为null就直接转换
+                if (IsNullableType(sourceItem.PropertyType) && !IsNullableType(targetItem.PropertyType))
+                {
+                    var hasValueExpression = Equal(Property(sourceProperty, "HasValue"), Constant(true));
+                    var conditionItem = Condition(hasValueExpression, Convert(sourceProperty, targetItem.PropertyType), Default(targetItem.PropertyType));
+                    memberBindings.Add(Bind(targetItem, conditionItem));
+                    continue;
+                }
+
+                //非可空类型转换到可空类型，直接转换
+                if (!IsNullableType(sourceItem.PropertyType) && IsNullableType(targetItem.PropertyType))
+                {
+                    var memberExpression = Convert(sourceProperty, targetItem.PropertyType);
+                    memberBindings.Add(Bind(targetItem, memberExpression));
+                    continue;
+                }
+
                 if (targetItem.PropertyType != sourceItem.PropertyType)
                     continue;
 
@@ -242,6 +259,11 @@
 
             var lambda = Lambda<Action<TSource, TTarget>>(conditionTarget, sourceParameter, targetParameter);
             return lambda.Compile();
+        }
+
+        private static bool IsNullableType(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
     }
 }
