@@ -12,6 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmarks", "src\Benchmarks\Benchmarks.csproj", "{3B99C56E-52AA-4268-8A0C-5A480F905758}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionMapper.Tests", "test\ExpressionMapper.Tests\ExpressionMapper.Tests.csproj", "{75523D6F-34AF-4D95-B6B9-8642592040ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DDB2624E-606A-42D9-88D8-78D6ADB84D92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB70C3A0-DD0A-4F02-9421-43D5B96A8D12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "performance", "performance", "{96E6EEAE-A4A6-425A-97C4-D7BE61DC464D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +34,18 @@ Global
 		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75523D6F-34AF-4D95-B6B9-8642592040ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75523D6F-34AF-4D95-B6B9-8642592040ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75523D6F-34AF-4D95-B6B9-8642592040ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75523D6F-34AF-4D95-B6B9-8642592040ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8DDF849-4DF4-4784-A600-A575494A7690} = {DDB2624E-606A-42D9-88D8-78D6ADB84D92}
+		{3B99C56E-52AA-4268-8A0C-5A480F905758} = {96E6EEAE-A4A6-425A-97C4-D7BE61DC464D}
+		{75523D6F-34AF-4D95-B6B9-8642592040ED} = {BB70C3A0-DD0A-4F02-9421-43D5B96A8D12}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2999C1A-673F-47DC-82AF-8F0F5051A404}
