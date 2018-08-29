@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionMapper", "src\ExpressionMapper\ExpressionMapper.csproj", "{B8DDF849-4DF4-4784-A600-A575494A7690}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DD48D778-7120-454A-90EB-164B48948884}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmarks", "src\Benchmarks\Benchmarks.csproj", "{3B99C56E-52AA-4268-8A0C-5A480F905758}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8DDF849-4DF4-4784-A600-A575494A7690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8DDF849-4DF4-4784-A600-A575494A7690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8DDF849-4DF4-4784-A600-A575494A7690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8DDF849-4DF4-4784-A600-A575494A7690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B99C56E-52AA-4268-8A0C-5A480F905758}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2999C1A-673F-47DC-82AF-8F0F5051A404}
+	EndGlobalSection
+EndGlobal
