@@ -56,6 +56,10 @@
         {
             var sourceType = typeof(TSource);
             var targetType = typeof(TTarget);
+
+            if (IsEnumerable(sourceType) || IsEnumerable(targetType))
+                throw new NotSupportedException("Enumerable types are not supported,please use MapList method.");
+
             //Func委托传入变量
             var parameter = Parameter(sourceType, "p");
 
@@ -197,6 +201,10 @@
         {
             var sourceType = typeof(TSource);
             var targetType = typeof(TTarget);
+
+            if (IsEnumerable(sourceType) || IsEnumerable(targetType))
+                throw new NotSupportedException("Enumerable types are not supported,please use MapList method.");
+
             //Func委托传入变量
             var sourceParameter = Parameter(sourceType, "p");
 
@@ -242,23 +250,6 @@
                     continue;
                 }
 
-                //可空类型转换到非可空类型，当可空类型值为null时，用默认值赋给目标属性；不为null就直接转换
-                if (IsNullableType(sourceItem.PropertyType) && !IsNullableType(targetItem.PropertyType))
-                {
-                    var hasValueExpression = Equal(Property(sourceProperty, "HasValue"), Constant(true));
-                    var conditionItem = Condition(hasValueExpression, Convert(sourceProperty, targetItem.PropertyType), Default(targetItem.PropertyType));
-                    expressions.Add(Assign(targetProperty, conditionItem));
-                    continue;
-                }
-
-                //非可空类型转换到可空类型，直接转换
-                if (!IsNullableType(sourceItem.PropertyType) && IsNullableType(targetItem.PropertyType))
-                {
-                    var memberExpression = Convert(sourceProperty, targetItem.PropertyType);
-                    expressions.Add(Assign(targetProperty, memberExpression));
-                    continue;
-                }
-
                 if (targetItem.PropertyType != sourceItem.PropertyType)
                     continue;
 
@@ -281,6 +272,12 @@
         private static bool IsNullableType(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+
+        private static bool IsEnumerable(Type type)
+        {
+            return type.IsArray
+                   || type.GetInterfaces().Any(x => x == typeof(ICollection) || x == typeof(IEnumerable));
         }
     }
 }
