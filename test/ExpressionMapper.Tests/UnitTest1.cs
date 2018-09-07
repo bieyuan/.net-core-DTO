@@ -97,6 +97,25 @@ namespace ExpressionMapper.Tests
             Assert.Equal(default(DateTime), targetObj.NullableToNonNullableTime);
             Assert.Equal(time, targetObj.NullableToNonNullableTimeHasValue);
         }
+
+        [Fact]
+        public void Not_Support_Enumerable_Test()
+        {
+            Assert.Throws<NotSupportedException>(() =>
+            {
+                Mapper<IEnumerable<POCO>, IEnumerable<POCO>>.Map(new List<POCO>() { new POCO() { Hello = "World" } });
+            });
+
+            Assert.Throws<NotSupportedException>(() =>
+            {
+                Mapper<List<POCO>, List<POCO>>.Map(new List<POCO>() { new POCO() { Hello = "World" } });
+            });
+
+            Assert.Throws<NotSupportedException>(() =>
+            {
+                Mapper<POCO[], POCO[]>.Map(new[] { new POCO() { Hello = "World" } });
+            });
+        }
     }
 
     public class SourceType
