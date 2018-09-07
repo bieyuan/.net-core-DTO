@@ -25,19 +25,16 @@
         {
             if (MapFunc == null)
                 MapFunc = GetMapFunc();
+
             return MapFunc(source);
         }
 
-        public static List<TTarget> MapList(IEnumerable<TSource> sources)
+        public static IEnumerable<TTarget> MapList(IEnumerable<TSource> sources)
         {
             if (MapFunc == null)
                 MapFunc = GetMapFunc();
-            var result = new List<TTarget>();
-            foreach (var item in sources)
-            {
-                result.Add(MapFunc(item));
-            }
-            return result;
+
+            return sources.Select(MapFunc);
         }
 
         /// <summary>
@@ -49,6 +46,7 @@
         {
             if (MapAction == null)
                 MapAction = GetMapAction();
+
             MapAction(source, target);
         }
 
