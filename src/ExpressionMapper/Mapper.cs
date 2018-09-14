@@ -25,19 +25,16 @@
         {
             if (MapFunc == null)
                 MapFunc = GetMapFunc();
+
             return MapFunc(source);
         }
 
-        public static List<TTarget> MapList(IEnumerable<TSource> sources)
+        public static IEnumerable<TTarget> MapList(IEnumerable<TSource> sources)
         {
             if (MapFunc == null)
                 MapFunc = GetMapFunc();
-            var result = new List<TTarget>();
-            foreach (var item in sources)
-            {
-                result.Add(MapFunc(item));
-            }
-            return result;
+
+            return sources.Select(MapFunc);
         }
 
         /// <summary>
@@ -49,6 +46,7 @@
         {
             if (MapAction == null)
                 MapAction = GetMapAction();
+
             MapAction(source, target);
         }
 
@@ -82,9 +80,10 @@
                 //当非值类型且类型不相同时
                 if (!sourceItem.PropertyType.IsValueType && sourceItem.PropertyType != targetItem.PropertyType)
                 {
-                    //判断都是(非泛型)class
-                    if (sourceItem.PropertyType.IsClass && targetItem.PropertyType.IsClass &&
-                        !sourceItem.PropertyType.IsGenericType && !targetItem.PropertyType.IsGenericType)
+                    //判断都是(非泛型、非数组)class
+                    if (sourceItem.PropertyType.IsClass && targetItem.PropertyType.IsClass
+                        && !sourceItem.PropertyType.IsArray && !targetItem.PropertyType.IsArray
+                        && !sourceItem.PropertyType.IsGenericType && !targetItem.PropertyType.IsGenericType)
                     {
                         var expression = GetClassExpression(sourceProperty, sourceItem.PropertyType, targetItem.PropertyType);
                         memberBindings.Add(Bind(targetItem, expression));
@@ -181,7 +180,7 @@
             }
             else if (targetType.IsArray)//数组类型调用ToArray()方法
             {
-                iftrue = Call(mapperExecMap, mapperExecMap.Type.GetMethod("ToArray"));
+                iftrue = Call(typeof(Enumerable), nameof(Enumerable.ToArray), new[] { mapperExecMap.Type.GenericTypeArguments[0] }, mapperExecMap);
             }
             else if (typeof(IDictionary).IsAssignableFrom(targetType))
             {
@@ -232,9 +231,10 @@
                 //当非值类型且类型不相同时
                 if (!sourceItem.PropertyType.IsValueType && sourceItem.PropertyType != targetItem.PropertyType)
                 {
-                    //判断都是(非泛型)class
-                    if (sourceItem.PropertyType.IsClass && targetItem.PropertyType.IsClass &&
-                        !sourceItem.PropertyType.IsGenericType && !targetItem.PropertyType.IsGenericType)
+                    //判断都是(非泛型、非数组)class
+                    if (sourceItem.PropertyType.IsClass && targetItem.PropertyType.IsClass
+                        && !sourceItem.PropertyType.IsArray && !targetItem.PropertyType.IsArray
+                        && !sourceItem.PropertyType.IsGenericType && !targetItem.PropertyType.IsGenericType)
                     {
                         var expression = GetClassExpression(sourceProperty, sourceItem.PropertyType, targetItem.PropertyType);
                         expressions.Add(Assign(targetProperty, expression));
