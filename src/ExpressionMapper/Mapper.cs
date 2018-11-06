@@ -29,12 +29,12 @@
             return MapFunc(source);
         }
 
-        public static IEnumerable<TTarget> MapList(IEnumerable<TSource> sources)
+        public static List<TTarget> MapList(IEnumerable<TSource> sources)
         {
             if (MapFunc == null)
                 MapFunc = GetMapFunc();
 
-            return sources.Select(MapFunc);
+            return sources.Select(MapFunc).ToList();
         }
 
         /// <summary>
