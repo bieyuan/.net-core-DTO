@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace ExpressionMapper.Tests
@@ -9,6 +10,8 @@ namespace ExpressionMapper.Tests
         [Fact]
         public void Mapping_Func_Test()
         {
+
+
             var time = DateTime.Now;
             var list = new List<POCO>() { new POCO() { Hello = "World" } };
 
@@ -103,17 +106,7 @@ namespace ExpressionMapper.Tests
         {
             Assert.Throws<NotSupportedException>(() =>
             {
-                Mapper<IEnumerable<POCO>, IEnumerable<POCO>>.Map(new List<POCO>() { new POCO() { Hello = "World" } });
-            });
-
-            Assert.Throws<NotSupportedException>(() =>
-            {
                 Mapper<List<POCO>, List<POCO>>.Map(new List<POCO>() { new POCO() { Hello = "World" } });
-            });
-
-            Assert.Throws<NotSupportedException>(() =>
-            {
-                Mapper<POCO[], POCO[]>.Map(new[] { new POCO() { Hello = "World" } });
             });
         }
     }
