@@ -44,16 +44,6 @@
 ## 调用如下
 
   ``` C#
-  //全局映射配置
-    Mapper<TestA, TestB>.CreatConfig(op =>
-  {
-      op.IgnoreCase = true;
-      op.Bind((souce, target) =>
-      {
-          target.Name = "123";
-      });
-      op.Ignore(x => x.TestLists);
-  });
 
   var mode=new TestA();
   TestB b = Mapper<TestA, TestB>.Map(model);
