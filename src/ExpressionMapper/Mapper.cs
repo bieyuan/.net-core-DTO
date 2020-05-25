@@ -92,7 +92,7 @@ namespace System
             var expressions = new List<Expression>();
 
             // x.GetIndexParameters().Length ==0  过滤 this[index]  索引项
-            var targetTypes = targetType.GetProperties().Where(x => x.GetIndexParameters().Length == 0 && x.PropertyType.IsPublic && x.CanWrite);
+            var targetTypes = targetType.GetProperties().Where(x => x.GetIndexParameters().Length == 0 && (x.PropertyType.IsPublic || x.PropertyType.IsNestedPublic) && x.CanWrite);
 
             //过滤忽略项
             if (_config.IgnoreColoums != null && _config.IgnoreColoums.Count > 0)
@@ -100,7 +100,7 @@ namespace System
                 targetTypes = targetTypes.Where(x => !_config.IgnoreColoums.Contains(x.Name));
             }
 
-            var sourceTypes = sourceType.GetProperties().Where(x => x.GetIndexParameters().Length == 0 && x.PropertyType.IsPublic && x.CanRead);
+            var sourceTypes = sourceType.GetProperties().Where(x => x.GetIndexParameters().Length == 0 && (x.PropertyType.IsPublic || x.PropertyType.IsNestedPublic) && x.CanRead);
             foreach (var targetItem in targetTypes)
             {
                 var sourceItem = sourceTypes.FirstOrDefault(x => string.Compare(x.Name, targetItem.Name, _config.IgnoreCase) == 0);
